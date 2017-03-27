@@ -25,7 +25,12 @@ java -cp ~/myPrograms/Roma-master/jar/ROMA.jar fr.curie.ROMA.ModuleActivityAnaly
 -moduleFile ~/Documents/CSI2017/ROMA/genesets/REACTOME.gmt \
 -outputFolder ~/Documents/CSI2017/ROMA/results/CHOL_REACTOME
 # R
-y=read.table("~/Documents/CSI2017/ROMA/results/CHOL_REACTOME/module_scores.xls",header=T)
-x[order(x$L1_pv,-x$L1),]
-y=read.table("~/Documents/CSI2017/ROMA/results/CHOL_REACTOME/moduletable_simple.txt",header=T,row.names=1)
+y=read.table("~/Documents/CSI2017/ROMA/results/CHOL_REACTOME/moduletable_withscores.txt",header=T,row.names=1)
+y=y[y$L1.L2_pv<0.05,1:(dim(y)[2]-5)]
+row.names(y)=gsub("REACTOME_","",row.names(y))
 heatmap(as.matrix(y),cexCol=.5,cexRow=.5)
+
+
+# hypergeometric test checks for the intersection between your DEG and the genes on the set is found by chance or is significant.
+
+GSEA
