@@ -1,0 +1,31 @@
+# GMT files from broad institute
+
+
+# ROMA JAVA version
+
+java -cp ~/myPrograms/Roma-master/jar/ROMA.jar fr.curie.ROMA.ModuleActivityAnalysis \
+-dataFile ~/Documents/CSI2017/ROMA/data/CHOL_logscale.txt \
+-centerData 1 \
+-moduleFile ~/Documents/CSI2017/ROMA/genesets/ACSN.gmt \
+-outputFolder ~/Documents/CSI2017/ROMA/results/CHOL_ACSN
+##
+# R exploration
+x=read.table("~/Documents/CSI2017/ROMA/results/CHOL_ACSN/module_scores.xls",header=T)
+x[order(x$L1_pv,-x$L1),]
+
+x=read.table("~/Documents/CSI2017/ROMA/results/CHOL_ACSN/moduletable_simple.txt",header=T,row.names=1)
+heatmap(as.matrix(x),cexCol=.5,cexRow=.5)
+#############
+
+# trying Roma with reactome
+
+java -cp ~/myPrograms/Roma-master/jar/ROMA.jar fr.curie.ROMA.ModuleActivityAnalysis \
+-dataFile ~/Documents/CSI2017/ROMA/data/CHOL_logscale.txt \
+-centerData 1 \
+-moduleFile ~/Documents/CSI2017/ROMA/genesets/REACTOME.gmt \
+-outputFolder ~/Documents/CSI2017/ROMA/results/CHOL_REACTOME
+# R
+y=read.table("~/Documents/CSI2017/ROMA/results/CHOL_REACTOME/module_scores.xls",header=T)
+x[order(x$L1_pv,-x$L1),]
+y=read.table("~/Documents/CSI2017/ROMA/results/CHOL_REACTOME/moduletable_simple.txt",header=T,row.names=1)
+heatmap(as.matrix(y),cexCol=.5,cexRow=.5)
